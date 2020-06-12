@@ -1,0 +1,9 @@
+﻿@departments =
+    EXTRACT DepID int,
+            DepName string
+    FROM "/output.csv"
+    USING Extractor.Csv();
+
+OUTPUT @departments
+TO ""
+USING Outputters.Csv();
