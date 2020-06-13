@@ -6,16 +6,21 @@
             Duration        int, 
             Urls            string, 
             ClickedUrls     string
-    FROM "/SearchLog.tsv"
+    FROM "wasb://demo@akashjdemos/SearchLog.tsv"
     USING Extractors.Tsv();
 
-@output =
+@output1 =
     SELECT Start,
            Region,
            Duration,
            Demo.Func.into2(Duration) AS doubleDuration
     FROM @searchlog;
 
+@output =
+    SELECT *
+    FROM @output1
+    WHERE doubleDuration < 150;
+
 OUTPUT @output 
-    TO "/SearchLog_output_1.tsv"
+    TO "/SearchLog_output_2.tsv"
     USING Outputters.Tsv();
