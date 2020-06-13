@@ -1,9 +1,21 @@
-﻿@departments =
-    EXTRACT DepID int,
-            DepName string
-    FROM "/output.csv"
-    USING Extractor.Csv();
+﻿@searchlog = 
+    EXTRACT UserId          int, 
+            Start           DateTime, 
+            Region          string, 
+            Query           string, 
+            Duration        int, 
+            Urls            string, 
+            ClickedUrls     string
+    FROM "/SearchLog.tsv"
+    USING Extractors.Tsv();
 
-OUTPUT @departments
-TO ""
-USING Outputters.Csv();
+@output =
+    SELECT Start,
+           Region,
+           Duration,
+           Demo.Func.into2(Duration) AS doubleDuration
+    FROM @searchlog;
+
+OUTPUT @output 
+    TO "/SearchLog_output_1.tsv"
+    USING Outputters.Tsv();

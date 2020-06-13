@@ -9,5 +9,11 @@ using System.Text;
 
 namespace Demo
 {
-    
+    public class Func
+    {
+        public static int into2(int duration)
+        {
+            return duration * 2;
+        }
+    }
 }
