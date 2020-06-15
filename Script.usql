@@ -22,5 +22,5 @@
     WHERE doubleDuration < 150;
 
 OUTPUT @output 
-    TO "/SearchLog_output_2.tsv"
+    TO "/demo/SearchLog_output_2.tsv"
     USING Outputters.Tsv();
